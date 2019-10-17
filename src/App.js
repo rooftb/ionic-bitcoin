@@ -1,10 +1,19 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
 import "./App.css";
-import { IonApp, IonHeader, IonToolbar, IonTitle, IonContent, IonIcon } from "@ionic/react";
+import {
+  IonApp,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonIcon
+} from "@ionic/react";
+import { logoBitcoin } from "ionicons/icons";
 import { getBitcoinPrice } from "./api/Bitcoin";
-import LoadingCard from './components/LoadingCard/LoadingCard';
-import BitcoinCard from './components/BitcoinCard/BitcoinCard';
+import LoadingCard from "./components/LoadingCard/LoadingCard";
+import BitcoinCard from "./components/BitcoinCard/BitcoinCard";
+import Interval from "react-interval-rerender";
 
 class App extends Component {
   state = {
@@ -18,7 +27,7 @@ class App extends Component {
     this.setState(
       {
         bitcoinInfo,
-        loading: false,
+        loading: false
       },
       () => console.log(this.state)
     );
@@ -31,12 +40,13 @@ class App extends Component {
         <LoadingCard />
         <LoadingCard />
       </>
-    )
+    );
   }
 
   createBitcoinCards(bitcoinInfo) {
-    return Object.keys(bitcoinInfo.bpi).map((item, index) => (<BitcoinCard data={bitcoinInfo.bpi[item]} />
-    ))
+    return Object.keys(bitcoinInfo.bpi).map((item, index) => (
+      <BitcoinCard data={bitcoinInfo.bpi[item]} />
+    ));
   }
 
   render() {
@@ -44,16 +54,19 @@ class App extends Component {
     return (
       <IonApp>
         <IonHeader>
-          <IonToolbar color="primary">
-            <IonTitle>Bitcoin Price Tracker</IonTitle>
+          <IonToolbar>
+            <IonTitle className="bitcoin-title" color="light">
+              Bitcoin Price Tracker
+            </IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonContent>
-          <IonIcon name="logo-bitcoin" />
-          {
-            loading === true ? this.createLoadingCards() :
-              this.createBitcoinCards(bitcoinInfo)}
-
+          <section className="bitcoin-header">
+            <IonIcon className="bitcoin-logo" icon={logoBitcoin} />
+          </section>
+          {loading === true
+            ? this.createLoadingCards()
+            : this.createBitcoinCards(bitcoinInfo)}
         </IonContent>
       </IonApp>
     );

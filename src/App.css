@@ -1,22 +1,28 @@
-.App {
-  text-align: center;
+.bitcoin-logo {
+  width: 140px;
+  height: 140px;
+  display: block;
+  margin: 0 auto;
+  color: #fff;
 }
 
-.App-logo {
-  height: 40vmin;
+.bitcoin-header {
+  background-image: linear-gradient(180deg, #66b2b2, #004c4c);
+  height: 140px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.bitcoin-title {
+  font-weight: bold;
 }
 
-.App-link {
-  color: #09d3ac;
+ion-content {
+  --background: #006666;
+}
+
+ion-toolbar {
+  --background: #66b2b2 !important;
+}
+
+ion-card {
+  --background: #fff !important;
 }
