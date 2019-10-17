@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import { IonApp, IonHeader, IonToolbar, IonTitle, IonContent, IonIcon } from "@ionic/react";
 import { getBitcoinPrice } from "./api/Bitcoin";
+import LoadingCard from './components/LoadingCard/LoadingCard';
+import BitcoinCard from './components/BitcoinCard/BitcoinCard';
 
 class App extends Component {
   state = {
@@ -15,30 +18,44 @@ class App extends Component {
     this.setState(
       {
         bitcoinInfo,
-        loading: false
+        loading: false,
       },
       () => console.log(this.state)
     );
   }
 
-  render() {
+  createLoadingCards() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <>
+        <LoadingCard />
+        <LoadingCard />
+        <LoadingCard />
+      </>
+    )
+  }
+
+  createBitcoinCards(bitcoinInfo) {
+    return Object.keys(bitcoinInfo.bpi).map((item, index) => (<BitcoinCard data={bitcoinInfo.bpi[item]} />
+    ))
+  }
+
+  render() {
+    const { bitcoinInfo, loading } = this.state;
+    return (
+      <IonApp>
+        <IonHeader>
+          <IonToolbar color="primary">
+            <IonTitle>Bitcoin Price Tracker</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent>
+          <IonIcon name="logo-bitcoin" />
+          {
+            loading === true ? this.createLoadingCards() :
+              this.createBitcoinCards(bitcoinInfo)}
+
+        </IonContent>
+      </IonApp>
     );
   }
 }
